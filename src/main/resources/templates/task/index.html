@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>EpicTask</title>
+</head>
+
+<body>
+
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo">EpicTask</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li class="active"><a href="/task">pendentes</a></li>
+                <li><a href="#">concluídas</a></li>
+                <li><a href="#">usuários</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <div class="card-panel teal accent-3" th:if="${success}" th:text="${success}"></div>
+        <div class="card-panel red accent-3 white-text" th:if="${error}" th:text="${error}"></div>
+
+        <h2>Tarefas Pendentes</h2>
+
+        <div class="row">
+
+            <div th:each="task : ${tasks}" class="col s12 m6 l4"> 
+                <div class="card">
+                    <div class="card-content">
+                        <div class="progress">
+                            <div class="determinate" th:style="${'width:' + task.status + '%' }"></div>
+                        </div>
+                        <span th:text="${task.title}" class="card-title"></span>
+                        <p th:text="${task.description}"></p>
+                        <span th:text="${task.score}" data-badge-caption="points" class="badge red white-text"></span>
+                    </div>
+                    <div class="card-action">
+                        <a th:href="${'/task/delete/' + task.id}" class="waves-effect waves-light btn red">
+                            <i class="material-icons">delete</i>
+                        </a>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>
