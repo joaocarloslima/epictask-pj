@@ -1,6 +1,10 @@
 package br.com.fiap.epictask.task;
 
+import java.util.Locale;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
@@ -21,6 +25,9 @@ public class TaskController {
     @Autowired
     TaskService service;
 
+    @Autowired
+    MessageSource message;
+
     @GetMapping
     public String index(Model model, @AuthenticationPrincipal OAuth2User user){
         model.addAttribute("username", user.getAttribute("name"));
@@ -32,7 +39,7 @@ public class TaskController {
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id, RedirectAttributes redirect){
         if (service.delete(id)){
-            redirect.addFlashAttribute("success", "Tarefa apagada com sucesso");
+            redirect.addFlashAttribute("success", message.getMessage("task.delete.success", null, LocaleContextHolder.getLocale()));
         }else{
             redirect.addFlashAttribute("error", "Tarefa não encontrada");
         }
