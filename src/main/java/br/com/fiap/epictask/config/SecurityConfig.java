@@ -14,8 +14,8 @@ public class SecurityConfig {
 
         return http
             .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
-            .oauth2Login(Customizer.withDefaults())
-            .formLogin(Customizer.withDefaults())
+            .oauth2Login( form -> form.loginPage("/login").permitAll() )
+            .logout( logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/login") )
             .build();
 
     }
