@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{ _template :: head('usuários') }" ></head>
+
+<body>
+
+    <nav th:replace="~{ _template :: #navbar }"></nav>
+
+    <div class="container">
+
+        <div class="card-panel teal accent-3" th:if="${success}" th:text="${success}"></div>
+        <div class="card-panel red accent-3 white-text" th:if="${error}" th:text="${error}"></div>
+
+        <h2>Usuários</h2>
+
+        <ul class="collection" th:each="user : ${users}">
+            <li class="collection-item">
+                <div>
+                    <span th:text="${user.name}"></span>
+                    <span class="secondary-content" th:text="${user.score}"></span>
+                </div>
+            </li>
+        </ul>
+
+       
+
+
+</body>
+
+
+</html>

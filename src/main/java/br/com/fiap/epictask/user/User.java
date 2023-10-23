@@ -20,6 +20,7 @@ public class User {
     Long id;
     String name;
     String avatarUrl;
+    int score;
 
     public static User convert(OAuth2User oAuth2User){
         return User.builder()

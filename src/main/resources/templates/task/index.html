@@ -34,7 +34,7 @@
                         <a th:href="${'/task/dec/' + task.id}" class="waves-effect waves-light btn-small" title="diminuir status">
                             <i class="material-icons">remove</i>
                         </a>
-                        <a th:href="${'/task/inc/' + task.id}" class="waves-effect waves-light btn-small" title="aumentar status">
+                        <a th:if="${task.status != 100}" th:href="${'/task/inc/' + task.id}" class="waves-effect waves-light btn-small" title="aumentar status">
                             <i class="material-icons">add</i>
                         </a>
                         <a th:href="${'/task/catch/' + task.id}" class="waves-effect waves-light btn-small purple" title="pegar tarefa">

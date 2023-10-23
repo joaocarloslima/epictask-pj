@@ -4,16 +4,21 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import br.com.fiap.epictask.user.User;
+import br.com.fiap.epictask.user.UserService;
 
 @Service
 public class TaskService {
 
     @Autowired
     TaskRepository repository;
+
+    @Autowired
+    UserService userService;
 
     public List<Task> findAll(){
         return repository.findAll();
@@ -42,6 +47,12 @@ public class TaskService {
         if (task.getStatus() == 100) return false;
 
         task.setStatus(task.getStatus() + 10);
+
+        if (task.getStatus() == 100){
+            var user = (OAuth2User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            userService.addScore(task.getScore(), Long.valueOf(user.getName()));
+        }
+
         repository.save(task);
         return true;
 
